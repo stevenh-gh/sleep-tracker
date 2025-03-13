@@ -1,46 +1,45 @@
 import { render } from "@testing-library/react";
 import App from "../App.tsx";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 describe("App", () => {
+  it("renders the home page", () => {
+    const { getByText } = render(<MemoryRouter><App/></MemoryRouter>);
 
-  it("can link to about", () => {
-    const { getByText } = render(
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>,
-    );
-    const link = getByText(/About/);
-    expect(link).toHaveAttribute("href", "/about");
+    expect(getByText("Welcome to the Restwise")).toBeInTheDocument();
   });
 
-  it("can link to contact", () => {
+  it("renders the about page", () => {
     const { getByText } = render(
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>,
+      <MemoryRouter initialEntries={["/about"]}><App/></MemoryRouter>,
     );
-    const link = getByText(/Contact/);
-    expect(link).toHaveAttribute("href", "/contact");
+
+    expect(getByText(/About/)).
+      toBeInTheDocument();
   });
 
-  it("can link to login", () => {
+  it("renders the contact page", () => {
     const { getByText } = render(
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>,
+      <MemoryRouter initialEntries={["/contact"]}><App/></MemoryRouter>,
     );
-    const link = getByText(/Log in/);
-    expect(link).toHaveAttribute("href", "/login");
+
+    expect(getByText(/Contact/)).
+      toBeInTheDocument();
   });
 
-  it("can link to signup", () => {
+  it("renders the login page", () => {
     const { getByText } = render(
-      <BrowserRouter>
-        <App/>
-      </BrowserRouter>,
+      <MemoryRouter initialEntries={["/login"]}><App/></MemoryRouter>,
     );
-    const link = getByText(/Sign up/);
-    expect(link).toHaveAttribute("href", "/signup");
+
+    expect(getByText("Login")).toBeInTheDocument();
+  });
+
+  it("renders the signup page", () => {
+    const { getByText } = render(
+      <MemoryRouter initialEntries={["/signup"]}><App/></MemoryRouter>,
+    );
+
+    expect(getByText("Sign up")).toBeInTheDocument();
   });
 });
