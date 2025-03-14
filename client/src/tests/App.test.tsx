@@ -1,45 +1,58 @@
-import { render } from "@testing-library/react";
-import App from "../App.tsx";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import App from "../App";
 
 describe("App", () => {
   it("renders the home page", () => {
-    const { getByText } = render(<MemoryRouter><App/></MemoryRouter>);
-
-    expect(getByText("Welcome to the Restwise")).toBeInTheDocument();
-  });
-
-  it("renders the about page", () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={["/about"]}><App/></MemoryRouter>,
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App/>
+      </MemoryRouter>,
     );
 
-    expect(getByText(/About/)).
+    expect(screen.getByRole("heading", { name: "Welcome to the Restwise" })).
       toBeInTheDocument();
   });
 
-  it("renders the contact page", () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={["/contact"]}><App/></MemoryRouter>,
+  it("renders the about page", () => {
+    render(
+      <MemoryRouter initialEntries={["/about"]}>
+        <App/>
+      </MemoryRouter>,
     );
 
-    expect(getByText(/Contact/)).
+    expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
+  });
+
+  it("renders the contact page", () => {
+    render(
+      <MemoryRouter initialEntries={["/contact"]}>
+        <App/>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("heading", { name: "Contact" })).
       toBeInTheDocument();
   });
 
   it("renders the login page", () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={["/login"]}><App/></MemoryRouter>,
+    render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <App/>
+      </MemoryRouter>,
     );
 
-    expect(getByText("Login")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Login" })).toBeInTheDocument();
   });
 
   it("renders the signup page", () => {
-    const { getByText } = render(
-      <MemoryRouter initialEntries={["/signup"]}><App/></MemoryRouter>,
+    render(
+      <MemoryRouter initialEntries={["/signup"]}>
+        <App/>
+      </MemoryRouter>,
     );
 
-    expect(getByText("Sign up")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Sign up" })).
+      toBeInTheDocument();
   });
 });
