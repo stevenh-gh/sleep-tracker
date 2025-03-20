@@ -10,6 +10,12 @@ const Signup = () => {
           <h1 className="title">Sign up</h1>
           <form>
             <div className="field">
+              <label className="label">Username</label>
+              <div className="control">
+                <input className="input" type="text"/>
+              </div>
+            </div>
+            <div className="field">
               <label className="label">Email</label>
               <div className="control">
                 <input className="input" type="email"/>
